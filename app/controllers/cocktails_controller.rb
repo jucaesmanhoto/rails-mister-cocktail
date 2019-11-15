@@ -9,6 +9,10 @@ class CocktailsController < ApplicationController
     @cocktail = Cocktail.new
   end
 
+  def show
+    @dose = Dose.new
+  end
+
   def create
     @cocktail = Cocktail.new(cocktail_params)
     if @cocktail.save
@@ -25,6 +29,6 @@ class CocktailsController < ApplicationController
   end
 
   def cocktail_params
-    params.require(:cocktail).permit(:name)
+    params.require(:cocktail).permit(:name, :picture_url)
   end
 end

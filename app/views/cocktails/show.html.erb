@@ -1,30 +1,52 @@
-<div class="conntainer">
-  <div class="row justify-content-center mt-4">
-    <div class="col-6 text-center">
-      <h1><%= @cocktail.name %></h1>
-      <ul>
-        <% @cocktail.doses.each do |dose| %>
-          <li>
-            <%= dose.ingredient.name %> => <%= dose.description %>
-            <%= link_to dose_path(dose), method: 'delete', data: { confirm: "Are you sure?" } do %>
-              <i class="fa fa-trash"></i>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-8 text-center">
+
+      <div class="card">
+        <%= image_tag @cocktail.picture_url, class: 'show-card-image'  %>
+
+
+        <div class="card-title mt-4">
+          <div class="cocktail-name">
+            <h1><%= @cocktail.name %></h1>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="row">
+            <% @cocktail.doses.each do |dose| %>
+              <div class="card col-4">
+                <div class="d-flex justify-content-between p-2">
+                  <%= dose.ingredient.name %>: <%= dose.description %>
+                  <%= link_to dose_path(dose), method: 'delete', data: { confirm: "Are you sure?" } do %>
+                    <i class="fa fa-trash text-danger"></i>
+                  <% end %>
+                </div>
+              </div>
             <% end %>
-          </li>
-        <% end %>
-      </ul>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="row justify-content-between px-4">
+            <div class="text-center">
+              <%= link_to "Add a dose", new_cocktail_dose_path(@cocktail), class: "btn btn-outline-primary" %>
+            </div>
+            <div class="text-center">
+              <%= link_to "Delete cocktail", cocktail_path(@cocktail), method: 'delete', data: { confirm: "Do you really want to delete #{@cocktail.name}?"}, class: "btn btn-outline-danger" %>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
+
+    <div class="col-4">
+      <%= render 'doses/form' %>
+    </div>
+
   </div>
 
-  <div class="row justify-content-center mt-4">
-    <div class="col-6 text-center">
-      <%= link_to "Add a dose", new_cocktail_dose_path(@cocktail) %>
-    </div>
-  </div>
 
-  <div class="row justify-content-center mt-4">
-    <div class="col-6 text-center">
-      <%= link_to "Back to list", cocktails_path %>
-    </div>
-  </div>
+
 
 </div>
